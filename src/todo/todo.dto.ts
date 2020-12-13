@@ -1,3 +1,3 @@
-class TodoDto {
+export class TodoDto {
   name: string;
 }

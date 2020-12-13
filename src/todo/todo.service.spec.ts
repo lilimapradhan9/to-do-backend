@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TodoService } from './todo.service';
 import { Todo } from './todo';
 import { getModelToken } from '@nestjs/mongoose';
+import { TodoDto } from './todo.dto';
 
 describe('TodoService', () => {
   let service: TodoService;

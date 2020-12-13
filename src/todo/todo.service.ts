@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Todo, TodoDocument } from './todo';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { TodoDto } from './todo.dto';
 
 @Injectable()
 export class TodoService {
