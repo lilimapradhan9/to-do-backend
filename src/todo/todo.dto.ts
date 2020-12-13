@@ -1,0 +1,3 @@
+class TodoDto {
+  name: string;
+}

@@ -5,11 +5,14 @@ import { Todo } from './todo';
 
 describe('TodoController', () => {
   let controller: TodoController;
-  const todoList = [new Todo('todo1')];
+  const todo = new Todo('todo1');
+  const todoList = [todo];
+  const mockAddTodoFunction = jest.fn(() => todo);
   const mockGetTodoFunction = jest.fn(() => todoList);
 
   beforeEach(async () => {
     const dummyService = {
+      addTodo: mockAddTodoFunction,
       getTodos: mockGetTodoFunction,
     };
     const module: TestingModule = await Test.createTestingModule({
@@ -25,8 +28,20 @@ describe('TodoController', () => {
     controller = module.get<TodoController>(TodoController);
   });
 
-  it('should return todo list', () => {
-    expect(controller.getTodos()).toBe(todoList);
+  it('should return save todo', () => {
+    expect(
+      controller.addTodo({
+        name: 'todo1',
+      }),
+    ).toBe(todo);
+  });
+
+  it('should call service to save todo', () => {
+    expect(mockAddTodoFunction).toBeCalledTimes(1);
+  });
+
+  it('should return todo list', async () => {
+    expect(await controller.getTodos()).toBe(todoList);
   });
 
   it('should call service to get todos', () => {
