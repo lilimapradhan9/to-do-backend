@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  to-do-app:
+    depends_on:
+      - mongodb
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: to-do-backend
+    container_name: to-do-backend
+    restart: always
+    ports:
+      - '3000:3000'
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    networks:
+      - to-do-network
+    environment:
+      - DB_URL=mongodb://mongodb:27017/to-do
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    volumes:
+      - db_data:/data/db
+    ports:
+      - '27017:27017'
+    networks:
+      - to-do-network
+
+networks:
+  to-do-network:
+volumes:
+  db_data: {}
